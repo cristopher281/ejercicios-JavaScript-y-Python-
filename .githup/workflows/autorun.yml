@@ -1,0 +1,30 @@
+name: Ejecutar archivos automáticamente
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  run_scripts:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v3
+
+      - name: Ejecutar scripts de JavaScript
+        run: |
+          for i in {1..10}; do
+            echo "Ejecutando ejercicios-js/ejercicio${i}.js..."
+            node "ejercicios-js/ejercicio${i}.js" || exit 1
+          done
+          echo "Todos los scripts de JavaScript ejecutados correctamente."
+
+      - name: Ejecutar scripts de Python
+        run: |
+          for i in {1..10}; do
+            echo "Ejecutando ejercicios-py/ejercicio${i}.py..."
+            python "ejercicios-py/ejercicio${i}.py" || exit 1
+          done
+          echo "Todos los scripts de Python ejecutados correctamente."
